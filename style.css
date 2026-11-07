@@ -1,0 +1,125 @@
+/* All selectors are scoped to this plugin. Modern Discord builds no longer
+   expose some of the older text colour tokens used by v2. */
+.msr-root {
+    --msr-text: var(--text-default, var(--text-primary, #f0f1f5));
+    --msr-muted: var(--text-secondary, #b8becc);
+    --msr-surface: var(--background-secondary, rgba(255, 255, 255, .055));
+    --msr-border: var(--border-subtle, rgba(255, 255, 255, .13));
+    color: var(--msr-text) !important;
+    font-family: var(--font-primary, "gg sans", sans-serif);
+    padding: 12px 16px 18px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.theme-light .msr-root {
+    --msr-text: var(--text-primary, #222530);
+    --msr-muted: var(--text-secondary, #545b69);
+    --msr-surface: var(--background-secondary, rgba(0, 0, 0, .045));
+    --msr-border: var(--border-subtle, rgba(0, 0, 0, .14));
+}
+.msr-modal-header {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px !important;
+    border-bottom: 1px solid var(--border-subtle, rgba(127,127,127,.2));
+}
+.msr-modal-title { display: flex; flex-direction: column; gap: 3px; }
+.msr-modal-title strong {
+    display: block;
+    color: var(--text-default, var(--text-primary, #f0f1f5)) !important;
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 700;
+}
+.msr-modal-title span { color: var(--text-secondary, #b8becc) !important; font-size: 12px; }
+.theme-light .msr-modal-title strong { color: var(--text-primary, #222530) !important; }
+.theme-light .msr-modal-title span { color: var(--text-secondary, #545b69) !important; }
+.msr-modal-content { padding: 0 !important; overflow: auto; }
+.msr-controls { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px; }
+.msr-field { display: flex; flex: 1 1 155px; flex-direction: column; min-width: 140px; max-width: 310px; gap: 7px; }
+.msr-field-guild { flex: 1.5 1 200px; }
+.msr-field > span { color: var(--msr-text) !important; font-size: 13px; font-weight: 600; }
+.msr-field select, .msr-search {
+    display: block;
+    background: var(--msr-surface) !important;
+    color: var(--msr-text) !important;
+    border: 1px solid var(--msr-border) !important;
+    border-radius: 8px;
+    min-width: 0;
+    padding: 9px 11px;
+    min-height: 37px;
+    font: inherit;
+    font-size: 13px;
+    opacity: 1 !important;
+    -webkit-text-fill-color: currentColor;
+    box-sizing: border-box;
+}
+.msr-field select { width: 100%; cursor: pointer; }
+.msr-field select option { color: #15171b; background-color: #fff; }
+.msr-field select:focus, .msr-search:focus { outline: 2px solid var(--brand-500, #5865f2); outline-offset: 1px; }
+.msr-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin: 15px 0 0; }
+.msr-refresh, .msr-profile-button {
+    border: 0;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 9px 13px;
+    line-height: 18px;
+}
+.msr-refresh { background: var(--brand-500, #5865f2) !important; color: white !important; }
+.msr-refresh:hover { filter: brightness(1.12); }
+.msr-autoupdate { display: flex; gap: 8px; align-items: center; cursor: pointer; color: var(--msr-text) !important; font-size: 13px; }
+.msr-autoupdate input { width: 15px; height: 15px; cursor: pointer; accent-color: var(--brand-500, #5865f2); }
+.msr-note { margin: 12px 0; font-size: 12px; line-height: 1.55; color: var(--msr-muted) !important; }
+.msr-search { width: 100%; margin: 14px 0 6px; }
+.msr-search::placeholder { color: var(--msr-muted) !important; opacity: .95; -webkit-text-fill-color: var(--msr-muted); }
+.msr-summary { display: flex; gap: 8px 14px; justify-content: space-between; flex-wrap: wrap; margin: 6px 0 10px; color: var(--msr-muted) !important; font-size: 12px; }
+.msr-list {
+    max-height: min(48vh, 430px);
+    min-height: 100px;
+    overflow-y: auto;
+    border: 1px solid var(--msr-border);
+    border-radius: 10px;
+    scrollbar-color: rgba(127, 127, 127, .55) transparent;
+    scrollbar-width: thin;
+}
+.msr-list::-webkit-scrollbar { width: 7px; }
+.msr-list::-webkit-scrollbar-thumb { border-radius: 8px; background: rgba(127, 127, 127, .55); }
+.msr-person + .msr-person { border-top: 1px solid var(--msr-border); }
+.msr-person-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    width: 100%;
+    border: 0;
+    padding: 12px;
+    text-align: left;
+    cursor: pointer;
+    color: var(--msr-text) !important;
+    background: transparent !important;
+    font: inherit;
+    font-size: 13px;
+}
+.msr-person-button:hover, .msr-person-button[aria-expanded="true"] { background: var(--msr-surface) !important; }
+.msr-person-name { display: inline-flex; gap: 9px; align-items: center; min-width: 0; max-width: 100%; }
+.msr-rank { flex: 0 0 30px; color: var(--msr-muted) !important; font-size: 12px; }
+.msr-name { min-width: 0; font-weight: 600; color: var(--msr-text) !important; overflow-wrap: anywhere; }
+.msr-friend-tag { flex: 0 0 auto; font-size: 11px; background: rgba(62, 166, 225, .18); color: var(--text-link, #73c4ed) !important; border-radius: 20px; padding: 2px 8px; }
+.msr-count { flex: 0 0 auto; margin-left: auto; color: var(--msr-text) !important; font-size: 12px; font-weight: 600; }
+.msr-details { border-top: 1px solid var(--msr-border); background: var(--msr-surface); padding: 12px 17px 13px 51px; color: var(--msr-muted) !important; font-size: 13px; line-height: 1.6; }
+.msr-detail-heading { margin-bottom: 6px; font-weight: 700; color: var(--msr-text) !important; }
+.msr-detail-item { padding: 2px 0; color: var(--msr-text) !important; }
+.msr-detail-actions { margin-top: 10px; }
+.msr-profile-button { color: var(--msr-text) !important; border: 1px solid var(--msr-border); background: transparent !important; }
+.msr-profile-button:hover { background: var(--msr-surface) !important; }
+.msr-empty { padding: 20px; text-align: center; color: var(--msr-muted) !important; font-size: 13px; }
+@media (max-width: 600px) {
+    .msr-root { padding: 12px; }
+    .msr-field { flex: 1 1 100%; max-width: none; }
+    .msr-details { padding-left: 16px; }
+    .msr-list { max-height: 45vh; }
+}
