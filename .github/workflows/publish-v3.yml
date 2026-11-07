@@ -1,0 +1,58 @@
+name: Publish MutualServersRanking v3
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/publish-v3.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    if: github.repository == 'Best-Jaro/MutualServersRanking'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out plugin source
+        uses: actions/checkout@v4
+
+      - name: Create installable plugin ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist/MutualServersRanking
+          cp index.tsx style.css README.md dist/MutualServersRanking/
+          (cd dist && zip -q -r MutualServersRanking-v3.zip MutualServersRanking)
+          unzip -t dist/MutualServersRanking-v3.zip
+
+      - name: Publish GitHub Release and attach ZIP
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          if gh release view "v3.0.0" >/dev/null 2>&1; then
+            echo "Release v3.0.0 already exists; skipping."
+            exit 0
+          fi
+
+          cat > /tmp/release-notes.md <<'EOF'
+          # MutualServersRanking v3.0.0
+
+          Source-only custom Vencord plugin by **Best-Jaro**.
+
+          **Included:** mutual-server rankings, cached mutual-friend rankings, friends/server-members switch, search, profile shortcuts, English UI, and local-only `/mutualranking` command.
+
+          **Install:** Download `MutualServersRanking-v3.zip`, extract the `MutualServersRanking` directory into your Vencord `src/userplugins/`, and rebuild Vencord.
+
+          **Note:** Rankings only use information already available in the local Discord client cache. Some counts may be incomplete. This release has not been validated against every Vesktop/Vencord build.
+          EOF
+
+          gh release create "v3.0.0" "dist/MutualServersRanking-v3.zip" \
+            --target "${{ github.sha }}" \
+            --title "MutualServersRanking v3.0.0" \
+            --notes-file /tmp/release-notes.md \
+            --latest
