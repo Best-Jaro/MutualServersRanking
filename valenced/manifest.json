@@ -1,0 +1,19 @@
+{
+  "format": 1,
+  "id": "dev.best-jaro.mutual-servers-ranking",
+  "name": "Mutual Servers Ranking",
+  "description": "Rank friends and cached server members by shared servers or cached mutual friends.",
+  "author": "Best-Jaro <695567308126421003> (https://github.com/Best-Jaro \"GitHub\")",
+  "version": "1.0.0-beta1",
+  "dependencies": {
+    "valenced.api": {
+      "version": ">=1 <2"
+    },
+    "discord": {
+      "version": "*"
+    }
+  },
+  "dist": {
+    "script": "index.js"
+  }
+}
